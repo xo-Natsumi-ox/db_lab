@@ -7,7 +7,7 @@ import com.shevchuk.service.HospitalHasPatientService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class HospitalHasPatientServiceImpl implements HospitalHasPatientService {
+public final class HospitalHasPatientServiceImpl implements HospitalHasPatientService {
     @Override
     public List<HospitalHasPatientEntity> getAll() throws SQLException {
         return new HospitalHasPatientDaoImpl().findAll();

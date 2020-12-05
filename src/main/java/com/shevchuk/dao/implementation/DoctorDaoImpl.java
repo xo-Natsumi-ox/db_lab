@@ -4,22 +4,22 @@ import com.shevchuk.connection.ConnectionManager;
 import com.shevchuk.dao.DoctorDao;
 import com.shevchuk.model.DoctorEntity;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorDaoImpl implements DoctorDao {
+public final class DoctorDaoImpl implements DoctorDao {
 
     private static final String FIND_ALL = "SELECT * FROM doctor";
     private static final String FIND_BY_ID = "SELECT * FROM doctor WHERE id=?";
     private static final String CREATE = "INSERT doctor (id,name,surname,hospital_id) VALUES(?,?,?,?)";
-    private static final String UPDATE = "UPDATE doctor SET id=?,name=?,surname=?,hospital_id=? WHERE id = ?";
+    private static final String UPDATE = "UPDATE doctor SET name=?,surname=?,hospital_id=? WHERE id = ?";
     private static final String DELETE = "DELETE FROM doctor WHERE id=?";
 
-    //    int id;
-//    String name;
-//    String surname;
-//    int hospital_id;
     @Override
     public List<DoctorEntity> findAll() throws SQLException {
         List<DoctorEntity> doctors = new ArrayList<>();
@@ -30,8 +30,8 @@ public class DoctorDaoImpl implements DoctorDao {
                     int id = resultSet.getInt(1);
                     String name = resultSet.getString(2);
                     String surname = resultSet.getString(3);
-                    int hospital_id = resultSet.getInt(4);
-                    doctors.add(new DoctorEntity(id, name, surname, hospital_id));
+                    int hospitalId = resultSet.getInt(4);
+                    doctors.add(new DoctorEntity(id, name, surname, hospitalId));
                 }
 
             }
@@ -50,8 +50,8 @@ public class DoctorDaoImpl implements DoctorDao {
                 while (resultSet.next()) {
                     String name = resultSet.getString(2);
                     String surname = resultSet.getString(3);
-                    int hospital_id = resultSet.getInt(4);
-                    doctorById = new DoctorEntity(id, name, surname, hospital_id);
+                    int hospitalId = resultSet.getInt(4);
+                    doctorById = new DoctorEntity(id, name, surname, hospitalId);
                 }
 
             }
@@ -67,7 +67,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setInt(1, doctor.getId());
             preparedStatement.setString(2, doctor.getName());
             preparedStatement.setString(3, doctor.getSurname());
-            preparedStatement.setInt(4, doctor.getHospital_id());
+            preparedStatement.setInt(4, doctor.getHospitalId());
             return preparedStatement.executeUpdate();
         }
 
@@ -78,10 +78,10 @@ public class DoctorDaoImpl implements DoctorDao {
     public int update(DoctorEntity doctor) throws SQLException {
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setInt(1, doctor.getId());
-            preparedStatement.setString(2, doctor.getName());
-            preparedStatement.setString(3, doctor.getSurname());
-            preparedStatement.setInt(4, doctor.getHospital_id());
+            preparedStatement.setString(1, doctor.getName());
+            preparedStatement.setString(2, doctor.getSurname());
+            preparedStatement.setInt(3, doctor.getHospitalId());
+            preparedStatement.setInt(4, doctor.getId());
             return preparedStatement.executeUpdate();
         }
     }

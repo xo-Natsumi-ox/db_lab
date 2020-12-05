@@ -1,7 +1,11 @@
 package com.shevchuk.view;
 
 import com.shevchuk.connection.ConnectionManager;
-import com.shevchuk.model.*;
+import com.shevchuk.model.AdressEntity;
+import com.shevchuk.model.DoctorEntity;
+import com.shevchuk.model.HospitalEntity;
+import com.shevchuk.model.HospitalHasPatientEntity;
+import com.shevchuk.model.PatientEntity;
 import com.shevchuk.service.implemention.*;
 
 import java.sql.SQLException;
@@ -10,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class View {
+public final class View {
     private final Map<String, String> menu;
     private final Map<String, Printable> methodsMenu;
     private static final Scanner input = new Scanner(System.in);
@@ -252,7 +256,7 @@ public class View {
     }
 
     private void updatePatient() throws SQLException {
-        System.out.println("input a new patient id");
+        System.out.println("input a patient id");
         int id = input.nextInt();
         System.out.println("input a new patient name");
         input.nextLine();
@@ -269,7 +273,7 @@ public class View {
     }
 
     private void updateDoctor() throws SQLException {
-        System.out.println("input a new doctor id");
+        System.out.println("input a doctor id");
         int id = input.nextInt();
         System.out.println("input a new doctor name");
         input.nextLine();
@@ -286,7 +290,7 @@ public class View {
     }
 
     private void updateAdress() throws SQLException {
-        System.out.println("input a new adress id");
+        System.out.println("input a adress id");
         int id = input.nextInt();
         System.out.println("input a new adress city or village");
         input.nextLine();
@@ -301,7 +305,7 @@ public class View {
     }
 
     private void updateHospital() throws SQLException {
-        System.out.println("input a new hospital id");
+        System.out.println("input a hospital id");
         int id = input.nextInt();
         System.out.println("input a new hospital name");
         input.nextLine();
@@ -318,7 +322,7 @@ public class View {
     }
 
     private void updateHospitalHasPatient() throws SQLException {
-        System.out.println("input a new hospitalHasPatient id ");
+        System.out.println("input a hospitalHasPatient id ");
         int id = input.nextInt();
         System.out.println("input a new patient id ");
         int patientId = input.nextInt();
@@ -383,7 +387,7 @@ public class View {
     }
 
     public void show() {
-        System.out.println("input something\n write M - for watchin menu\n write Q - for closing connection\n write G - for getting connection");
+        System.out.println("input something\n write M - for watchin menu\n write Q - for closing connection\n");
         String keyMenu;
         System.out.println("select point");
         do {
@@ -400,16 +404,12 @@ public class View {
                     exception.printStackTrace();
                 }
             }
-            if (keyMenu.equalsIgnoreCase("G")) {
-                ConnectionManager.getConnection();
-                System.out.println("you get connection");
-            }
             if (keyMenu.equalsIgnoreCase("Q")) {
-                ConnectionManager.getConnection();
+                ConnectionManager.exitConnection();
                 System.out.println("you close connection");
+                break;
             }
-        } while (!keyMenu.equals('Q'));
-        ConnectionManager.exitConnection();
-        System.out.println("connection closed");
+        } while (true);
+
     }
 }

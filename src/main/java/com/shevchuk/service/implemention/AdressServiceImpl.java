@@ -7,7 +7,7 @@ import com.shevchuk.service.AdressService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AdressServiceImpl implements AdressService {
+public final class AdressServiceImpl implements AdressService {
     @Override
     public List<AdressEntity> getAll() throws SQLException {
         return new AdressDaoImpl().findAll();

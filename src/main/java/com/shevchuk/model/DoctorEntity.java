@@ -1,16 +1,16 @@
 package com.shevchuk.model;
 
-public class DoctorEntity {
-    int id;
-    String name;
-    String surname;
-    int hospital_id;
+public final class DoctorEntity {
+    private int id;
+    private String name;
+    private String surname;
+    private int hospitalId;
 
-    public DoctorEntity(int id, String name, String surname, int hospital_id) {
+    public DoctorEntity(int id, String name, String surname, int hospitalId) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.hospital_id = hospital_id;
+        this.hospitalId = hospitalId;
     }
 
     public int getId() {
@@ -37,21 +37,21 @@ public class DoctorEntity {
         this.surname = surname;
     }
 
-    public int getHospital_id() {
-        return hospital_id;
+    public int getHospitalId() {
+        return hospitalId;
     }
 
-    public void setHospital_id(int hospital_id) {
-        this.hospital_id = hospital_id;
+    public void setHospitalId(int hospitalId) {
+        this.hospitalId = hospitalId;
     }
 
     @Override
     public String toString() {
-        return "DoctorEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", hospital_id=" + hospital_id +
-                '}';
+        return "Doctor{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + ", hospital id=" + hospitalId
+                + '}';
     }
 }

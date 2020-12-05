@@ -1,13 +1,13 @@
 package com.shevchuk.model;
 
-public class AdressEntity {
-    int id;
-    String city_or_village;
-    String street;
+public final class AdressEntity {
+    private int id;
+    private String cityOrVillage;
+    private String street;
 
-    public AdressEntity(int id, String city_or_village, String street) {
+    public AdressEntity(int id, String cityOrVillage, String street) {
         this.id = id;
-        this.city_or_village = city_or_village;
+        this.cityOrVillage = cityOrVillage;
         this.street = street;
     }
 
@@ -19,12 +19,12 @@ public class AdressEntity {
         this.id = id;
     }
 
-    public String getCity_or_village() {
-        return city_or_village;
+    public String getCityOrVillage() {
+        return cityOrVillage;
     }
 
-    public void setCity_or_village(String city_or_village) {
-        this.city_or_village = city_or_village;
+    public void setCityOrVillage(String cityOrVillage) {
+        this.cityOrVillage = cityOrVillage;
     }
 
     public String getStreet() {
@@ -38,10 +38,10 @@ public class AdressEntity {
 
     @Override
     public String toString() {
-        return "AdressEntity{" +
-                "id=" + id +
-                ", city_or_village='" + city_or_village + '\'' +
-                ", street='" + street + '\'' +
-                '}';
+        return "Adress{"
+                + "id=" + id
+                + ", city or village='" + cityOrVillage + '\''
+                + ", street='" + street + '\''
+                + '}';
     }
 }

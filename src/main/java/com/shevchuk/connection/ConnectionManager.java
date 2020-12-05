@@ -1,9 +1,11 @@
 package com.shevchuk.connection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class ConnectionManager {
-    private static final String url = "jdbc:mysql://localhost:3306/db_shevchuk_connection?serverTimezone=UTC";
+public final class ConnectionManager {
+    private static final String url = "jdbc:mysql://localhost:3306/db_shevchuk_connection?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     private static final String user = "root";
     private static final String password = "qwerty";
     private static Connection connection = null;
@@ -15,7 +17,7 @@ public class ConnectionManager {
     public static Connection getConnection() {
         if (connection == null) {
             try {
-                connection = DriverManager.getConnection(url, user, password);//get connection to db
+                connection = DriverManager.getConnection(url, user, password); //get connection to db
             } catch (SQLException exception) {
                 System.out.println("SQLException " + exception.getMessage());
                 System.out.println("SQLState " + exception.getSQLState());
@@ -26,10 +28,12 @@ public class ConnectionManager {
     }
 
     public static Connection exitConnection() {
-        if (connection != null) try {
+        if (connection != null) {
+            try {
             connection.close();
         } catch (SQLException exception) {
             System.out.println("can't close connection");
+            }
         }
         return connection;
     }

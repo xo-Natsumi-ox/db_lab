@@ -1,10 +1,10 @@
 package com.shevchuk.model;
 
-public class PatientEntity {
-    int id;
-    String name;
-    String surname;
-    int age;
+public final class PatientEntity {
+    private int id;
+    private String name;
+    private String surname;
+    private int age;
 
     public int getId() {
         return id;
@@ -47,11 +47,10 @@ public class PatientEntity {
 
     @Override
     public String toString() {
-        return "PatientEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                '}';
+        return "Patient{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + ", age=" + age + '}';
     }
 }

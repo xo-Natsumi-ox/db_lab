@@ -1,9 +1,9 @@
 package com.shevchuk.model;
 
-public class HospitalHasPatientEntity {
-    int id;
-    int patientId;
-    int hospitalId;
+public final class HospitalHasPatientEntity {
+    private int id;
+    private int patientId;
+    private int hospitalId;
 
     public int getId() {
         return id;
@@ -37,10 +37,10 @@ public class HospitalHasPatientEntity {
 
     @Override
     public String toString() {
-        return "HospitalHasPatientEntity{" +
-                "id=" + id +
-                ", patientId=" + patientId +
-                ", hospitalId=" + hospitalId +
-                '}';
+        return "HospitalHasPatient{"
+                + "id=" + id
+                + ", patient id=" + patientId
+                + ", hospital id=" + hospitalId
+                + '}';
     }
 }
