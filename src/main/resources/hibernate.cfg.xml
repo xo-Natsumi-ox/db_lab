@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/db_shevchuk?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">qwerty</property>
+
+        <mapping class="com.shevchuk.model.AdressEntity"/>
+        <mapping class="com.shevchuk.model.DoctorEntity"/>
+        <mapping class="com.shevchuk.model.HospitalEntity"/>
+        <mapping class="com.shevchuk.model.PatientEntity"/>
+        <mapping class="com.shevchuk.model.SheduleEntity"/>
+        <mapping class="com.shevchuk.model.TrackerEntity"/>
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
