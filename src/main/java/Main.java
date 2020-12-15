@@ -13,7 +13,7 @@ import java.util.Map;
 public class Main {
 
 
-    public static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) {
             new View().show();
         }
 }

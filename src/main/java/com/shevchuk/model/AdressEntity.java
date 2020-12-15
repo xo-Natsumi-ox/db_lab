@@ -67,10 +67,10 @@ public class AdressEntity {
 
     @Override
     public String toString() {
-        return "\n" + "AdressEntity{" +
+        return "AdressEntity{" +
                 "id=" + id +
-                ", cityOrVillage='" + cityOrVillage + '\'' +
-                ", street='" + street + '\'' +
+                ", cityOrVillage='" + cityOrVillage +
+                ", street='" + street +
                 '}';
     }
 }

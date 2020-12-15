@@ -1,16 +1,19 @@
 package com.shevchuk.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface GeneralDao<T, ID> {
-    List<T> findAll() throws SQLException;
 
-    T findById(ID id) throws SQLException;
+    List<T> findAll();
 
-    void create(T entity) throws SQLException;
+    T findById(ID id);
 
-    void update(T entity) throws SQLException;
+    void create(T entity);
 
-    void delete(ID id) throws SQLException;
+    void update(T entity);
+
+    void delete(ID id);
+
+    Class<T> getObjClass();
+
 }

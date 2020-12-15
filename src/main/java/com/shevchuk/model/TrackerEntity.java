@@ -106,12 +106,13 @@ public class TrackerEntity {
 
     @Override
     public String toString() {
-        return "\n" + "TrackerEntity{" +
+        return "TrackerEntity{" +
                 "id=" + id +
                 ", pressure=" + pressure +
                 ", temperature=" + temperature +
                 ", palpitation=" + palpitation +
                 ", diagnos='" + diagnos + '\'' +
+                ", patientId=" + patientId.getId() +
                 '}';
     }
 }

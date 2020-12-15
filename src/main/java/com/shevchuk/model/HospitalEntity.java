@@ -80,10 +80,11 @@ public class HospitalEntity {
 
     @Override
     public String toString() {
-        return "\n" + "HospitalEntity{" +
+        return "HospitalEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", number=" + number +
+                ", adresslId=" + adresslId.getId() +
                 '}';
     }
 }

@@ -80,10 +80,11 @@ public class DoctorEntity {
 
     @Override
     public String toString() {
-        return "\n" + "DoctorEntity{" +
+        return "DoctorEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", hospitalId=" + hospitalId.getId() +
                 '}';
     }
 }

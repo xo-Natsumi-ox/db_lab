@@ -1,25 +1,22 @@
 package com.shevchuk.view;
 
 import com.shevchuk.connection.ConnectionManager;
+import com.shevchuk.controller.implementation.*;
 import com.shevchuk.model.*;
-import com.shevchuk.service.*;
-import com.shevchuk.service.implemention.*;
 
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public final class View {
+public class View {
     private final Map<String, String> menu;
     private final Map<String, Printable> methodsMenu;
-    private static final Scanner input = new Scanner(System.in);
-    private final AdressController adressController = new AdressControllerImpl();
-    private final DoctorController doctorController = new DoctorControllerImpl();
-    private final HospitalController hospitalController = new HospitalControllerImpl();
-    private final PatientController patientController = new PatientControllerImpl();
-    private final SheduleController sheduleController = new SheduleControllerImpl();
-    private final TrackerController trackerController = new TrackerControllerImpl();
+    private final AdressController adressController = new AdressController();
+    private final DoctorController doctorController = new DoctorController();
+    private final HospitalController hospitalController = new HospitalController();
+    private final PatientController patientController = new PatientController();
+    private final SheduleController sheduleController = new SheduleController();
+    private final TrackerController trackerController = new TrackerController();
 
 
     public View() {
@@ -64,119 +61,119 @@ public final class View {
 
         menu.put("q", "q - exit");
 
-        methodsMenu.put("11", this::getAllAdresses);
-        methodsMenu.put("12", this::getAdressById);
+        methodsMenu.put("11", this::findAllAdresses);
+        methodsMenu.put("12", this::findAdressById);
         methodsMenu.put("13", this::createAdress);
         methodsMenu.put("14", this::updateAdress);
         methodsMenu.put("15", this::deleteAdress);
 
-        methodsMenu.put("21", this::getAllDoctors);
-        methodsMenu.put("22", this::getDoctorById);
+        methodsMenu.put("21", this::findAllDoctors);
+        methodsMenu.put("22", this::findDoctorById);
         methodsMenu.put("23", this::createDoctor);
         methodsMenu.put("24", this::updateDoctor);
         methodsMenu.put("25", this::deleteDoctor);
 
-        methodsMenu.put("31", this::getAllPatients);
-        methodsMenu.put("32", this::getPatientById);
+        methodsMenu.put("31", this::findAllPatients);
+        methodsMenu.put("32", this::findPatientById);
         methodsMenu.put("33", this::createPatient);
         methodsMenu.put("34", this::updatePatient);
         methodsMenu.put("35", this::deletePatient);
 
-        methodsMenu.put("41", this::getAllHospitals);
-        methodsMenu.put("42", this::getHospitalById);
+        methodsMenu.put("41", this::findAllHospitals);
+        methodsMenu.put("42", this::findHospitalById);
         methodsMenu.put("43", this::createHospital);
         methodsMenu.put("44", this::updateHospital);
         methodsMenu.put("45", this::deleteHospital);
 
-        methodsMenu.put("51", this::getAllTrackers);
-        methodsMenu.put("52", this::getTrackerById);
+        methodsMenu.put("51", this::findAllTrackers);
+        methodsMenu.put("52", this::findTrackerById);
         methodsMenu.put("53", this::createTracker);
         methodsMenu.put("54", this::updateTracker);
         methodsMenu.put("55", this::deleteTracker);
 
-        methodsMenu.put("61", this::getAllShedules);
-        methodsMenu.put("62", this::getSheduleById);
+        methodsMenu.put("61", this::findAllShedules);
+        methodsMenu.put("62", this::findSheduleById);
         methodsMenu.put("63", this::createShedule);
         methodsMenu.put("64", this::updateShedule);
         methodsMenu.put("65", this::deleteShedule);
     }
 
-    private void getAllPatients() throws SQLException {
-        System.out.println("getAllPatients");
-        System.out.println(patientController.getAll() + "\n");
+    private void findAllPatients() {
+        System.out.println("getAllPatients" + "\n");
+        patientController.findAll();
     }
 
-    private void getAllDoctors() throws SQLException {
+    private void findAllDoctors() {
 
-        System.out.println("getAllDoctors");
-        System.out.println(doctorController.getAll() + "\n");
+        System.out.println("getAllDoctors" + "\n");
+        doctorController.findAll();
     }
 
-    private void getAllAdresses() throws SQLException {
+    private void findAllAdresses() {
 
-        System.out.println("getAllAdresses");
-        System.out.println(adressController.getAll() + "\n");
+        System.out.println("getAllAdresses" + "\n");
+        adressController.findAll();
     }
 
-    private void getAllHospitals() throws SQLException {
+    private void findAllHospitals() {
 
-        System.out.println("getAllHospitals");
-        System.out.println(hospitalController.getAll() + "\n");
+        System.out.println("getAllHospitals" + "\n");
+        hospitalController.findAll();
     }
 
-    private void getAllTrackers() throws SQLException {
+    private void findAllTrackers() {
 
-        System.out.println("getAllTrackers");
-        System.out.println(trackerController.getAll() + "\n");
+        System.out.println("getAllTrackers" + "\n");
+        trackerController.findAll();
     }
 
-    private void getAllShedules() throws SQLException {
+    private void findAllShedules() {
 
-        System.out.println("getAllShedules");
-        System.out.println(sheduleController.getAll() + "\n");
+        System.out.println("getAllShedules" + "\n");
+        sheduleController.findAll();
     }
 
-    private void getPatientById() throws SQLException {
+    private void findPatientById() {
         System.out.println("input id patient you want to find ");
         int id = new Scanner(System.in).nextInt();
-        System.out.println(patientController.getById(id) + "\n");
+        patientController.findById(id);
     }
 
-    private void getDoctorById() throws SQLException {
+    private void findDoctorById() {
         System.out.println("input id doctor you want to find ");
         int id = new Scanner(System.in).nextInt();
-        System.out.println(doctorController.getById(id) + "\n");
+        doctorController.findById(id);
 
     }
 
-    private void getAdressById() throws SQLException {
+    private void findAdressById() {
         System.out.println("input id adress you want to find ");
         int id = new Scanner(System.in).nextInt();
-        System.out.println(adressController.getById(id) + "\n");
+        adressController.findById(id);
     }
 
-    private void getHospitalById() throws SQLException {
+    private void findHospitalById() {
         System.out.println("input id hospital you want to find ");
         int id = new Scanner(System.in).nextInt();
-        System.out.println(hospitalController.getById(id) + "\n");
+        hospitalController.findById(id);
 
     }
 
-    private void getTrackerById() throws SQLException {
+    private void findTrackerById() {
         System.out.println("input id tracker you want to find ");
         int id = new Scanner(System.in).nextInt();
-        System.out.println(trackerController.getById(id) + "\n");
+        trackerController.findById(id);
 
     }
 
-    private void getSheduleById() throws SQLException {
+    private void findSheduleById() {
         System.out.println("input id shedule you want to find ");
         int id = new Scanner(System.in).nextInt();
-        System.out.println(sheduleController.getById(id) + "\n");
+        sheduleController.findById(id);
 
     }
 
-    private void createAdress() throws SQLException {
+    private void createAdress() {
         System.out.println("input a new adress id");
         int id = new Scanner(System.in).nextInt();
         System.out.println("input a new adress city or village");
@@ -185,10 +182,9 @@ public final class View {
         String street = new Scanner(System.in).nextLine();
         AdressEntity entity = new AdressEntity(id, cityOrVillage, street);
         adressController.create(entity);
-        System.out.println("created");
     }
 
-    private void createDoctor() throws SQLException {
+    private void createDoctor() {
         System.out.println("input a new doctor id");
         int id = new Scanner(System.in).nextInt();
         System.out.println("input a new doctor name");
@@ -196,13 +192,12 @@ public final class View {
         System.out.println("input a new doctor surname");
         String surname = new Scanner(System.in).nextLine();
         int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospDoc=hospitalController.getById(hospitalId);
+        HospitalEntity hospDoc = hospitalController.getEntityById(hospitalId);
         DoctorEntity entity = new DoctorEntity(id, name, surname, hospDoc);
         doctorController.create(entity);
-        System.out.println("created");
     }
 
-    private void createPatient() throws SQLException {
+    private void createPatient() {
         System.out.println("input a new patient id");
         int id = new Scanner(System.in).nextInt();
         System.out.println("input a new patient name");
@@ -213,13 +208,12 @@ public final class View {
         int age = new Scanner(System.in).nextInt();
         System.out.println("input a new hospital hospitalId");
         int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospPat=hospitalController.getById(hospitalId);
+        HospitalEntity hospPat = hospitalController.getEntityById(hospitalId);
         PatientEntity entity = new PatientEntity(id, name, surname, age, hospPat);
         patientController.create(entity);
-        System.out.println("created");
     }
 
-    private void createHospital() throws SQLException {
+    private void createHospital() {
         System.out.println("input a new hospital id");
         int id = new Scanner(System.in).nextInt();
         System.out.println("input a new hospital name");
@@ -228,13 +222,12 @@ public final class View {
         int number = new Scanner(System.in).nextInt();
         System.out.println("input a new hospital adressId");
         int adressId = new Scanner(System.in).nextInt();
-        AdressEntity hospAdress=adressController.getById(adressId);
+        AdressEntity hospAdress = adressController.getEntityById(adressId);
         HospitalEntity entity = new HospitalEntity(id, name, number, hospAdress);
         hospitalController.create(entity);
-        System.out.println("created");
     }
 
-    private void createTracker() throws SQLException {
+    private void createTracker() {
         System.out.println("input a new tracker id");
         int id = new Scanner(System.in).nextInt();
         System.out.println("input a new patient pressure");
@@ -247,13 +240,12 @@ public final class View {
         String diagnos = new Scanner(System.in).nextLine();
         System.out.println("input a new patientId");
         int patientId = new Scanner(System.in).nextInt();
-        PatientEntity trePatient=patientController.getById(patientId);
+        PatientEntity trePatient = patientController.getEntityById(patientId);
         TrackerEntity entity = new TrackerEntity(id, pressure, temperature, palpitation, diagnos, trePatient);
         trackerController.create(entity);
-        System.out.println("created");
     }
 
-    private void createShedule() throws SQLException {
+    private void createShedule() {
         System.out.println("input a new shedule id");
         int id = new Scanner(System.in).nextInt();
         System.out.println("input a new doctor date");
@@ -264,57 +256,44 @@ public final class View {
         String additionalInfo = new Scanner(System.in).nextLine();
         System.out.println("input a new doctor doctorId");
         int doctorId = new Scanner(System.in).nextInt();
-        DoctorEntity sheDoctor=doctorController.getById(doctorId);
+        DoctorEntity sheDoctor = doctorController.getEntityById(doctorId);
         SheduleEntity entity = new SheduleEntity(id, date, time, additionalInfo, sheDoctor);
         sheduleController.create(entity);
-        System.out.println("created");
     }
 
-    private void updateAdress() throws SQLException {
+    private void updateAdress() {
         System.out.println("input a adress id");
         int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new adress id");
-        int idnew = new Scanner(System.in).nextInt();
         System.out.println("input a new adress city or village");
         String cityOrVillage = new Scanner(System.in).nextLine();
         System.out.println("input a new adress street");
         String street = new Scanner(System.in).nextLine();
-        AdressEntity oldAdress = adressController.getById(id);
-        oldAdress.setId(idnew);
+        AdressEntity oldAdress = adressController.getEntityById(id);
         oldAdress.setCityOrVillage(cityOrVillage);
         oldAdress.setStreet(street);
-        adressController.delete(id);
         adressController.update(oldAdress);
-        System.out.println("updated");
     }
 
-    private void updateDoctor() throws SQLException {
+    private void updateDoctor() {
         System.out.println("input a doctor id");
         int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new doctor id");
-        int idnew = new Scanner(System.in).nextInt();
         System.out.println("input a new doctor name");
         String name = new Scanner(System.in).nextLine();
         System.out.println("input a new doctor surname");
         String surname = new Scanner(System.in).nextLine();
         System.out.println("input a new hospital hospitalId");
         int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospDoc=hospitalController.getById(hospitalId);
-        DoctorEntity oldDoctor = doctorController.getById(id);
-        oldDoctor.setId(idnew);
+        HospitalEntity hospDoc = hospitalController.getEntityById(hospitalId);
+        DoctorEntity oldDoctor = doctorController.getEntityById(id);
         oldDoctor.setName(name);
         oldDoctor.setSurname(surname);
         oldDoctor.setHospitalId(hospDoc);
-        doctorController.delete(id);
         doctorController.update(oldDoctor);
-        System.out.println("updated");
     }
 
-    private void updatePatient() throws SQLException {
+    private void updatePatient() {
         System.out.println("input a patient id");
         int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient id");
-        int idnew = new Scanner(System.in).nextInt();
         System.out.println("input a new patient name");
         String name = new Scanner(System.in).nextLine();
         System.out.println("input a new patient surname");
@@ -323,45 +302,35 @@ public final class View {
         int age = new Scanner(System.in).nextInt();
         System.out.println("input a new hospital hospitalId");
         int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospPat=hospitalController.getById(hospitalId);
-        PatientEntity oldPatient = patientController.getById(id);
-        oldPatient.setId(idnew);
+        HospitalEntity hospPat = hospitalController.getEntityById(hospitalId);
+        PatientEntity oldPatient = patientController.getEntityById(id);
         oldPatient.setName(name);
         oldPatient.setSurname(surname);
         oldPatient.setAge(age);
         oldPatient.setHospitalId(hospPat);
-        patientController.delete(id);
         patientController.update(oldPatient);
-        System.out.println("updated");
     }
 
-    private void updateHospital() throws SQLException {
+    private void updateHospital() {
         System.out.println("input a hospital id");
         int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient id");
-        int idnew = new Scanner(System.in).nextInt();
         System.out.println("input a new hospital name");
         String name = new Scanner(System.in).nextLine();
         System.out.println("input a new hospital number");
         int number = new Scanner(System.in).nextInt();
         System.out.println("input a new hospital adressId");
         int adressId = new Scanner(System.in).nextInt();
-        AdressEntity hospAdress=adressController.getById(adressId);
-        HospitalEntity oldHospital = hospitalController.getById(id);
-        oldHospital.setId(idnew);
+        AdressEntity hospAdress = adressController.getEntityById(adressId);
+        HospitalEntity oldHospital = hospitalController.getEntityById(id);
         oldHospital.setName(name);
         oldHospital.setNumber(number);
         oldHospital.setAdressId(hospAdress);
-        hospitalController.delete(id);
         hospitalController.update(oldHospital);
-        System.out.println("updated");
     }
 
-    private void updateTracker() throws SQLException {
+    private void updateTracker() {
         System.out.println("input a tracker id");
         int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient id");
-        int idnew = new Scanner(System.in).nextInt();
         System.out.println("input a new patient pressure");
         int pressure = new Scanner(System.in).nextInt();
         System.out.println("input a new patient temperature(double)");
@@ -372,24 +341,19 @@ public final class View {
         String diagnos = new Scanner(System.in).nextLine();
         System.out.println("input a new patientId");
         int patientId = new Scanner(System.in).nextInt();
-        PatientEntity trePatient=patientController.getById(patientId);
-        TrackerEntity oldTracker = trackerController.getById(id);
-        oldTracker.setId(idnew);
+        PatientEntity trePatient = patientController.getEntityById(patientId);
+        TrackerEntity oldTracker = trackerController.getEntityById(id);
         oldTracker.setPressure(pressure);
         oldTracker.setTemperature(temperature);
         oldTracker.setPalpitation(palpitation);
         oldTracker.setDiagnos(diagnos);
         oldTracker.setPatientId(trePatient);
-        trackerController.delete(id);
         trackerController.update(oldTracker);
-        System.out.println("updated");
     }
 
-    private void updateShedule() throws SQLException {
+    private void updateShedule() {
         System.out.println("input a shedule id");
         int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient id");
-        int idnew = new Scanner(System.in).nextInt();
         System.out.println("input a new doctor date");
         int date = new Scanner(System.in).nextInt();
         System.out.println("input a new doctor time");
@@ -398,58 +362,49 @@ public final class View {
         String additionalInfo = new Scanner(System.in).nextLine();
         System.out.println("input a new doctor doctorId");
         int doctorId = new Scanner(System.in).nextInt();
-        DoctorEntity sheDoctor=doctorController.getById(doctorId);
-        SheduleEntity oldShedule = sheduleController.getById(id);
-        oldShedule.setId(idnew);
+        DoctorEntity sheDoctor = doctorController.getEntityById(doctorId);
+        SheduleEntity oldShedule = sheduleController.getEntityById(id);
         oldShedule.setData(date);
         oldShedule.setTime(time);
         oldShedule.setAdditionalInfo(additionalInfo);
         oldShedule.setDoctorId(sheDoctor);
-        sheduleController.delete(id);
         sheduleController.update(oldShedule);
-        System.out.println("updated");
     }
 
-    private void deletePatient() throws SQLException {
+    private void deletePatient() {
         System.out.println("input a patient id you want to delete");
         int id = new Scanner(System.in).nextInt();
         patientController.delete(id);
-        System.out.println("deleted");
     }
 
-    private void deleteDoctor() throws SQLException {
+    private void deleteDoctor() {
         System.out.println("input a doctor id you want to delete");
         int id = new Scanner(System.in).nextInt();
         doctorController.delete(id);
-        System.out.println("deleted");
     }
 
-    private void deleteAdress() throws SQLException {
+    private void deleteAdress() {
         System.out.println("input a adress id you want to delete");
         int id = new Scanner(System.in).nextInt();
         adressController.delete(id);
-        System.out.println("deleted");
     }
 
-    private void deleteHospital() throws SQLException {
+    private void deleteHospital() {
         System.out.println("input a hospital id you want to delete");
         int id = new Scanner(System.in).nextInt();
         hospitalController.delete(id);
-        System.out.println("deleted");
     }
 
-    private void deleteTracker() throws SQLException {
+    private void deleteTracker() {
         System.out.println("input a tracker id you want to delete");
         int id = new Scanner(System.in).nextInt();
         trackerController.delete(id);
-        System.out.println("deleted");
     }
 
-    private void deleteShedule() throws SQLException {
+    private void deleteShedule() {
         System.out.println("input a shedule id you want to delete");
         int id = new Scanner(System.in).nextInt();
         sheduleController.delete(id);
-        System.out.println("deleted");
     }
 
 
@@ -471,11 +426,7 @@ public final class View {
                 System.out.println("Select menu point.");
                 keyMenu = new Scanner(System.in).nextLine().toUpperCase();
 
-                try {
-                    methodsMenu.get(keyMenu).print();
-                } catch (SQLException exception) {
-                    exception.printStackTrace();
-                }
+                methodsMenu.get(keyMenu).print();
             }
             if (keyMenu.equalsIgnoreCase("Q")) {
                 ConnectionManager.closeSession();
@@ -483,6 +434,5 @@ public final class View {
                 break;
             }
         } while (true);
-
     }
 }

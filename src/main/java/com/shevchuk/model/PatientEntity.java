@@ -93,11 +93,12 @@ public class PatientEntity {
 
     @Override
     public String toString() {
-        return "\n" + "PatientEntity{" +
+        return "PatientEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
+                ", hospitalId=" + hospitalId.getId() +
                 '}';
     }
 }

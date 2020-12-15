@@ -1,7 +1,6 @@
 package com.shevchuk.model;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -65,12 +64,6 @@ public class SheduleEntity {
         this.additionalInfo = additionalInfo;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false)
-    public DoctorEntity getDoctorId(DoctorEntity sheDoctor) {
-        return doctorId;
-    }
-
     public void setDoctorId(DoctorEntity doctorId) {
         this.doctorId = doctorId;
     }
@@ -94,11 +87,12 @@ public class SheduleEntity {
 
     @Override
     public String toString() {
-        return "\n" + "SheduleEntity{" +
+        return "SheduleEntity{" +
                 "id=" + id +
                 ", data=" + data +
                 ", time='" + time + '\'' +
                 ", additionalInfo='" + additionalInfo + '\'' +
+                ", doctorId=" + doctorId.getId() +
                 '}';
     }
 }
