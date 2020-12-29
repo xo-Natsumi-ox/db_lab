@@ -29,4 +29,4 @@ public class ConnectionManager {
         session.close();
         OUR_SESSION_FACTORY.close();
     }
-    }
+}
