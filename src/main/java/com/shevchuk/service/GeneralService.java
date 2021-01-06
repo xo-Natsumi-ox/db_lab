@@ -1,19 +1,19 @@
 package com.shevchuk.service;
 
-import com.shevchuk.dao.GeneralDao;
+import org.hibernate.Session;
 
 import java.util.List;
 
 public interface GeneralService<T, ID> {
-    List<T> findAll();
 
-    T findById(ID id);
+    List<T> findAll(Session session);
 
-    void create(T entity);
+    T findById(ID id, Session session);
 
-    void update(T entity);
+    void create(T entity, Session session);
 
-    void delete(ID id);
+    void update(T entity, Session session);
 
-    GeneralDao<T, ID> getDao();
+    void delete(ID id, Session session);
+
 }

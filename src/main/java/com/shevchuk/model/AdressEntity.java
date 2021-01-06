@@ -1,6 +1,12 @@
 package com.shevchuk.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.Basic;
 import java.util.Objects;
 
 @Entity
@@ -10,8 +16,7 @@ public class AdressEntity {
     private String cityOrVillage;
     private String street;
 
-    public AdressEntity(Integer id, String cityOrVillage, String street) {
-        this.id = id;
+    public AdressEntity(String cityOrVillage, String street) {
         this.cityOrVillage = cityOrVillage;
         this.street = street;
     }
@@ -21,6 +26,7 @@ public class AdressEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Integer getId() {
         return id;
@@ -52,12 +58,16 @@ public class AdressEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AdressEntity that = (AdressEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(cityOrVillage, that.cityOrVillage) &&
-                Objects.equals(street, that.street);
+        return Objects.equals(id, that.id)
+                && Objects.equals(cityOrVillage, that.cityOrVillage)
+                && Objects.equals(street, that.street);
     }
 
     @Override
@@ -67,10 +77,10 @@ public class AdressEntity {
 
     @Override
     public String toString() {
-        return "AdressEntity{" +
-                "id=" + id +
-                ", cityOrVillage='" + cityOrVillage +
-                ", street='" + street +
-                '}';
+        return "\nAdressEntity{"
+                + "id=" + id
+                + ", cityOrVillage='" + cityOrVillage
+                + ", street='" + street
+                + '}';
     }
 }

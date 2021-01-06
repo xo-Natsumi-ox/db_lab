@@ -1,8 +1,13 @@
 package com.shevchuk.view;
 
-import com.shevchuk.connection.ConnectionManager;
-import com.shevchuk.controller.implementation.*;
-import com.shevchuk.model.*;
+import com.shevchuk.controller.implementation.AdressController;
+import com.shevchuk.controller.implementation.DoctorController;
+import com.shevchuk.controller.implementation.HospitalController;
+import com.shevchuk.controller.implementation.PatientController;
+import com.shevchuk.model.AdressEntity;
+import com.shevchuk.model.DoctorEntity;
+import com.shevchuk.model.HospitalEntity;
+import com.shevchuk.model.PatientEntity;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -15,8 +20,7 @@ public class View {
     private final DoctorController doctorController = new DoctorController();
     private final HospitalController hospitalController = new HospitalController();
     private final PatientController patientController = new PatientController();
-    private final SheduleController sheduleController = new SheduleController();
-    private final TrackerController trackerController = new TrackerController();
+    private static final Scanner INPUT = new Scanner(System.in);
 
 
     public View() {
@@ -47,18 +51,6 @@ public class View {
         menu.put("44", "44 - update hospital");
         menu.put("45", "45 - delete hospital");
 
-        menu.put("51", "51 - get all trackers");
-        menu.put("52", "52 - get tracker by id");
-        menu.put("53", "53 - create tracker");
-        menu.put("54", "54 - update tracker");
-        menu.put("55", "55 - delete tracker");
-
-        menu.put("61", "61 - get all shedules");
-        menu.put("62", "62 - get shedule by id");
-        menu.put("63", "63 - create shedule");
-        menu.put("64", "64 - update shedule");
-        menu.put("65", "65 - delete shedule");
-
         menu.put("q", "q - exit");
 
         methodsMenu.put("11", this::findAllAdresses);
@@ -85,352 +77,244 @@ public class View {
         methodsMenu.put("44", this::updateHospital);
         methodsMenu.put("45", this::deleteHospital);
 
-        methodsMenu.put("51", this::findAllTrackers);
-        methodsMenu.put("52", this::findTrackerById);
-        methodsMenu.put("53", this::createTracker);
-        methodsMenu.put("54", this::updateTracker);
-        methodsMenu.put("55", this::deleteTracker);
-
-        methodsMenu.put("61", this::findAllShedules);
-        methodsMenu.put("62", this::findSheduleById);
-        methodsMenu.put("63", this::createShedule);
-        methodsMenu.put("64", this::updateShedule);
-        methodsMenu.put("65", this::deleteShedule);
     }
 
     private void findAllPatients() {
         System.out.println("getAllPatients" + "\n");
-        patientController.findAll();
+        System.out.println(patientController.findAll());
     }
 
     private void findAllDoctors() {
 
         System.out.println("getAllDoctors" + "\n");
-        doctorController.findAll();
+        System.out.println(doctorController.findAll());
     }
 
     private void findAllAdresses() {
 
         System.out.println("getAllAdresses" + "\n");
-        adressController.findAll();
+        System.out.println(adressController.findAll());
     }
 
     private void findAllHospitals() {
 
         System.out.println("getAllHospitals" + "\n");
-        hospitalController.findAll();
+        System.out.println(hospitalController.findAll());
     }
 
-    private void findAllTrackers() {
-
-        System.out.println("getAllTrackers" + "\n");
-        trackerController.findAll();
-    }
-
-    private void findAllShedules() {
-
-        System.out.println("getAllShedules" + "\n");
-        sheduleController.findAll();
-    }
 
     private void findPatientById() {
         System.out.println("input id patient you want to find ");
         int id = new Scanner(System.in).nextInt();
-        patientController.findById(id);
+        System.out.println(patientController.findById(id));
     }
 
     private void findDoctorById() {
         System.out.println("input id doctor you want to find ");
-        int id = new Scanner(System.in).nextInt();
-        doctorController.findById(id);
+        int id = INPUT.nextInt();
+        System.out.println(doctorController.findById(id));
 
     }
 
     private void findAdressById() {
         System.out.println("input id adress you want to find ");
-        int id = new Scanner(System.in).nextInt();
-        adressController.findById(id);
+        int id = INPUT.nextInt();
+        System.out.println(adressController.findById(id));
     }
 
     private void findHospitalById() {
         System.out.println("input id hospital you want to find ");
-        int id = new Scanner(System.in).nextInt();
-        hospitalController.findById(id);
-
+        int id = INPUT.nextInt();
+        System.out.println(hospitalController.findById(id));
     }
 
-    private void findTrackerById() {
-        System.out.println("input id tracker you want to find ");
-        int id = new Scanner(System.in).nextInt();
-        trackerController.findById(id);
-
-    }
-
-    private void findSheduleById() {
-        System.out.println("input id shedule you want to find ");
-        int id = new Scanner(System.in).nextInt();
-        sheduleController.findById(id);
-
-    }
 
     private void createAdress() {
-        System.out.println("input a new adress id");
-        int id = new Scanner(System.in).nextInt();
         System.out.println("input a new adress city or village");
-        String cityOrVillage = new Scanner(System.in).nextLine();
+        String cityOrVillage = INPUT.nextLine();
         System.out.println("input a new adress street");
-        String street = new Scanner(System.in).nextLine();
-        AdressEntity entity = new AdressEntity(id, cityOrVillage, street);
+        String street = INPUT.nextLine();
+        AdressEntity entity = new AdressEntity(cityOrVillage, street);
         adressController.create(entity);
+        System.out.println("created");
     }
 
     private void createDoctor() {
-        System.out.println("input a new doctor id");
-        int id = new Scanner(System.in).nextInt();
         System.out.println("input a new doctor name");
-        String name = new Scanner(System.in).nextLine();
+        String name = INPUT.nextLine();
         System.out.println("input a new doctor surname");
-        String surname = new Scanner(System.in).nextLine();
-        int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospDoc = hospitalController.getEntityById(hospitalId);
-        DoctorEntity entity = new DoctorEntity(id, name, surname, hospDoc);
+        String surname = INPUT.nextLine();
+        System.out.println("input a new doctor hospitalId");
+        int hospitalId = INPUT.nextInt();
+        HospitalEntity hospDoc = hospitalController.findById(hospitalId);
+        DoctorEntity entity = new DoctorEntity(name, surname, hospDoc);
         doctorController.create(entity);
+        System.out.println("created");
     }
 
     private void createPatient() {
-        System.out.println("input a new patient id");
-        int id = new Scanner(System.in).nextInt();
         System.out.println("input a new patient name");
-        String name = new Scanner(System.in).nextLine();
+        String name = INPUT.nextLine();
         System.out.println("input a new patient surname");
-        String surname = new Scanner(System.in).nextLine();
+        String surname = INPUT.nextLine();
         System.out.println("input a new patient age");
-        int age = new Scanner(System.in).nextInt();
+        int age = INPUT.nextInt();
         System.out.println("input a new hospital hospitalId");
-        int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospPat = hospitalController.getEntityById(hospitalId);
-        PatientEntity entity = new PatientEntity(id, name, surname, age, hospPat);
+        int hospitalId = INPUT.nextInt();
+        HospitalEntity hospPat = hospitalController.findById(hospitalId);
+        PatientEntity entity = new PatientEntity(name, surname, age, hospPat);
         patientController.create(entity);
+        System.out.println("created");
     }
 
     private void createHospital() {
-        System.out.println("input a new hospital id");
-        int id = new Scanner(System.in).nextInt();
         System.out.println("input a new hospital name");
-        String name = new Scanner(System.in).nextLine();
+        String name = INPUT.nextLine();
         System.out.println("input a new hospital number");
-        int number = new Scanner(System.in).nextInt();
+        int number = INPUT.nextInt();
         System.out.println("input a new hospital adressId");
-        int adressId = new Scanner(System.in).nextInt();
-        AdressEntity hospAdress = adressController.getEntityById(adressId);
-        HospitalEntity entity = new HospitalEntity(id, name, number, hospAdress);
+        int adressId = INPUT.nextInt();
+        AdressEntity hospAdress = adressController.findById(adressId);
+        HospitalEntity entity = new HospitalEntity(name, number, hospAdress);
         hospitalController.create(entity);
+        System.out.println("created");
     }
 
-    private void createTracker() {
-        System.out.println("input a new tracker id");
-        int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient pressure");
-        int pressure = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient temperature(double)");
-        double temperature = new Scanner(System.in).nextDouble();
-        System.out.println("input a new patient palpitation");
-        int palpitation = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient diagnos");
-        String diagnos = new Scanner(System.in).nextLine();
-        System.out.println("input a new patientId");
-        int patientId = new Scanner(System.in).nextInt();
-        PatientEntity trePatient = patientController.getEntityById(patientId);
-        TrackerEntity entity = new TrackerEntity(id, pressure, temperature, palpitation, diagnos, trePatient);
-        trackerController.create(entity);
-    }
-
-    private void createShedule() {
-        System.out.println("input a new shedule id");
-        int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new doctor date");
-        int date = new Scanner(System.in).nextInt();
-        System.out.println("input a new doctor time");
-        String time = new Scanner(System.in).nextLine();
-        System.out.println("input a new doctor additional_info");
-        String additionalInfo = new Scanner(System.in).nextLine();
-        System.out.println("input a new doctor doctorId");
-        int doctorId = new Scanner(System.in).nextInt();
-        DoctorEntity sheDoctor = doctorController.getEntityById(doctorId);
-        SheduleEntity entity = new SheduleEntity(id, date, time, additionalInfo, sheDoctor);
-        sheduleController.create(entity);
-    }
 
     private void updateAdress() {
         System.out.println("input a adress id");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
         System.out.println("input a new adress city or village");
-        String cityOrVillage = new Scanner(System.in).nextLine();
+        INPUT.nextLine();
+        String cityOrVillage = INPUT.nextLine();
         System.out.println("input a new adress street");
-        String street = new Scanner(System.in).nextLine();
-        AdressEntity oldAdress = adressController.getEntityById(id);
+        String street = INPUT.nextLine();
+        AdressEntity oldAdress = adressController.findById(id);
         oldAdress.setCityOrVillage(cityOrVillage);
         oldAdress.setStreet(street);
         adressController.update(oldAdress);
+        System.out.println("updated");
     }
 
     private void updateDoctor() {
         System.out.println("input a doctor id");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
+        INPUT.nextLine();
         System.out.println("input a new doctor name");
-        String name = new Scanner(System.in).nextLine();
+        String name = INPUT.nextLine();
         System.out.println("input a new doctor surname");
-        String surname = new Scanner(System.in).nextLine();
+        String surname = INPUT.nextLine();
         System.out.println("input a new hospital hospitalId");
-        int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospDoc = hospitalController.getEntityById(hospitalId);
-        DoctorEntity oldDoctor = doctorController.getEntityById(id);
+        int hospitalId = INPUT.nextInt();
+        HospitalEntity hospDoc = hospitalController.findById(hospitalId);
+        DoctorEntity oldDoctor = doctorController.findById(id);
         oldDoctor.setName(name);
         oldDoctor.setSurname(surname);
         oldDoctor.setHospitalId(hospDoc);
         doctorController.update(oldDoctor);
+        System.out.println("updated");
+
     }
 
     private void updatePatient() {
         System.out.println("input a patient id");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
+        INPUT.nextLine();
         System.out.println("input a new patient name");
-        String name = new Scanner(System.in).nextLine();
+        String name = INPUT.nextLine();
         System.out.println("input a new patient surname");
-        String surname = new Scanner(System.in).nextLine();
+        String surname = INPUT.nextLine();
         System.out.println("input a new patient age");
-        int age = new Scanner(System.in).nextInt();
+        int age = INPUT.nextInt();
         System.out.println("input a new hospital hospitalId");
-        int hospitalId = new Scanner(System.in).nextInt();
-        HospitalEntity hospPat = hospitalController.getEntityById(hospitalId);
-        PatientEntity oldPatient = patientController.getEntityById(id);
+        int hospitalId = INPUT.nextInt();
+        HospitalEntity hospPat = hospitalController.findById(hospitalId);
+        PatientEntity oldPatient = patientController.findById(id);
         oldPatient.setName(name);
         oldPatient.setSurname(surname);
         oldPatient.setAge(age);
         oldPatient.setHospitalId(hospPat);
         patientController.update(oldPatient);
+        System.out.println("updated");
+
     }
 
     private void updateHospital() {
         System.out.println("input a hospital id");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
+        INPUT.nextLine();
         System.out.println("input a new hospital name");
-        String name = new Scanner(System.in).nextLine();
+        String name = INPUT.nextLine();
         System.out.println("input a new hospital number");
-        int number = new Scanner(System.in).nextInt();
+        int number = INPUT.nextInt();
         System.out.println("input a new hospital adressId");
-        int adressId = new Scanner(System.in).nextInt();
-        AdressEntity hospAdress = adressController.getEntityById(adressId);
-        HospitalEntity oldHospital = hospitalController.getEntityById(id);
+        int adressId = INPUT.nextInt();
+        AdressEntity hospAdress = adressController.findById(adressId);
+        HospitalEntity oldHospital = hospitalController.findById(id);
         oldHospital.setName(name);
         oldHospital.setNumber(number);
         oldHospital.setAdressId(hospAdress);
         hospitalController.update(oldHospital);
+        System.out.println("updated");
+
     }
 
-    private void updateTracker() {
-        System.out.println("input a tracker id");
-        int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient pressure");
-        int pressure = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient temperature(double)");
-        double temperature = new Scanner(System.in).nextDouble();
-        System.out.println("input a new patient palpitation");
-        int palpitation = new Scanner(System.in).nextInt();
-        System.out.println("input a new patient diagnos");
-        String diagnos = new Scanner(System.in).nextLine();
-        System.out.println("input a new patientId");
-        int patientId = new Scanner(System.in).nextInt();
-        PatientEntity trePatient = patientController.getEntityById(patientId);
-        TrackerEntity oldTracker = trackerController.getEntityById(id);
-        oldTracker.setPressure(pressure);
-        oldTracker.setTemperature(temperature);
-        oldTracker.setPalpitation(palpitation);
-        oldTracker.setDiagnos(diagnos);
-        oldTracker.setPatientId(trePatient);
-        trackerController.update(oldTracker);
-    }
-
-    private void updateShedule() {
-        System.out.println("input a shedule id");
-        int id = new Scanner(System.in).nextInt();
-        System.out.println("input a new doctor date");
-        int date = new Scanner(System.in).nextInt();
-        System.out.println("input a new doctor time");
-        String time = new Scanner(System.in).nextLine();
-        System.out.println("input a new doctor additional_info");
-        String additionalInfo = new Scanner(System.in).nextLine();
-        System.out.println("input a new doctor doctorId");
-        int doctorId = new Scanner(System.in).nextInt();
-        DoctorEntity sheDoctor = doctorController.getEntityById(doctorId);
-        SheduleEntity oldShedule = sheduleController.getEntityById(id);
-        oldShedule.setData(date);
-        oldShedule.setTime(time);
-        oldShedule.setAdditionalInfo(additionalInfo);
-        oldShedule.setDoctorId(sheDoctor);
-        sheduleController.update(oldShedule);
-    }
 
     private void deletePatient() {
         System.out.println("input a patient id you want to delete");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
         patientController.delete(id);
+        System.out.println("deleted");
     }
 
     private void deleteDoctor() {
         System.out.println("input a doctor id you want to delete");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
         doctorController.delete(id);
+        System.out.println("deleted");
+
     }
 
     private void deleteAdress() {
         System.out.println("input a adress id you want to delete");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
         adressController.delete(id);
+        System.out.println("deleted");
+
     }
 
     private void deleteHospital() {
         System.out.println("input a hospital id you want to delete");
-        int id = new Scanner(System.in).nextInt();
+        int id = INPUT.nextInt();
         hospitalController.delete(id);
-    }
+        System.out.println("deleted");
 
-    private void deleteTracker() {
-        System.out.println("input a tracker id you want to delete");
-        int id = new Scanner(System.in).nextInt();
-        trackerController.delete(id);
-    }
-
-    private void deleteShedule() {
-        System.out.println("input a shedule id you want to delete");
-        int id = new Scanner(System.in).nextInt();
-        sheduleController.delete(id);
     }
 
 
     private void outputMenu() {
         System.out.println("\nMenu");
-        for (String key : menu.values())
+        for (String key : menu.values()) {
             System.out.println(key);
+        }
     }
 
     public void show() {
-        System.out.println("input something\n write M - for watchin menu\n write Q - for closing connection\n");
+        System.out.println(" M - menu\n Q - exit\n");
         String keyMenu;
         System.out.println("select point");
         do {
-            keyMenu = new Scanner(System.in).nextLine().toUpperCase();
+            keyMenu = INPUT.nextLine().toUpperCase();
 
-            if (keyMenu.matches("^\\d")) {
+            if (keyMenu.equalsIgnoreCase("M")) {
                 outputMenu();
                 System.out.println("Select menu point.");
-                keyMenu = new Scanner(System.in).nextLine().toUpperCase();
+                keyMenu = INPUT.nextLine().toUpperCase();
 
                 methodsMenu.get(keyMenu).print();
             }
             if (keyMenu.equalsIgnoreCase("Q")) {
-                ConnectionManager.closeSession();
-                System.out.println("you close connection");
+                System.out.println("good bye");
                 break;
             }
         } while (true);
