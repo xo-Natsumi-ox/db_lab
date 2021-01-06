@@ -13,8 +13,6 @@
         <mapping class="com.shevchuk.model.DoctorEntity"/>
         <mapping class="com.shevchuk.model.HospitalEntity"/>
         <mapping class="com.shevchuk.model.PatientEntity"/>
-        <mapping class="com.shevchuk.model.SheduleEntity"/>
-        <mapping class="com.shevchuk.model.TrackerEntity"/>
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

@@ -1,6 +1,14 @@
 package com.shevchuk.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.Basic;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import java.util.Objects;
 
 @Entity
@@ -12,8 +20,8 @@ public class PatientEntity {
     private Integer age;
     private HospitalEntity hospitalId;
 
-    public PatientEntity(Integer id, String name, String surname, Integer age, HospitalEntity hospitalId) {
-        this.id = id;
+    public PatientEntity(String name, String surname,
+                         Integer age, HospitalEntity hospitalId) {
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -25,6 +33,7 @@ public class PatientEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Integer getId() {
         return id;
@@ -65,7 +74,8 @@ public class PatientEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "hospital_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "hospital_id", referencedColumnName = "id",
+            nullable = false)
     public HospitalEntity getHospitalId() {
         return hospitalId;
     }
@@ -76,14 +86,18 @@ public class PatientEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PatientEntity that = (PatientEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(surname, that.surname) &&
-                Objects.equals(age, that.age) &&
-                Objects.equals(hospitalId, that.hospitalId);
+        return Objects.equals(id, that.id)
+                && Objects.equals(name, that.name)
+                && Objects.equals(surname, that.surname)
+                && Objects.equals(age, that.age)
+                && Objects.equals(hospitalId, that.hospitalId);
     }
 
     @Override
@@ -93,12 +107,12 @@ public class PatientEntity {
 
     @Override
     public String toString() {
-        return "PatientEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", hospitalId=" + hospitalId.getId() +
-                '}';
+        return "\nPatientEntity{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + ", age=" + age
+                + ", hospitalId=" + hospitalId.getId()
+                + '}';
     }
 }

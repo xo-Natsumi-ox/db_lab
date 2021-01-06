@@ -1,6 +1,14 @@
 package com.shevchuk.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.Basic;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import java.util.Objects;
 
 @Entity
@@ -11,8 +19,7 @@ public class HospitalEntity {
     private Integer number;
     private AdressEntity adresslId;
 
-    public HospitalEntity(Integer id, String name, Integer number, AdressEntity adresslId) {
-        this.id = id;
+    public HospitalEntity(String name, Integer number, AdressEntity adresslId) {
         this.name = name;
         this.number = number;
         this.adresslId = adresslId;
@@ -23,6 +30,7 @@ public class HospitalEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Integer getId() {
         return id;
@@ -53,7 +61,8 @@ public class HospitalEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "adress_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "adress_id", referencedColumnName = "id",
+            nullable = false)
     public AdressEntity getAdressId() {
         return adresslId;
     }
@@ -64,13 +73,17 @@ public class HospitalEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         HospitalEntity that = (HospitalEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(number, that.number) &&
-                Objects.equals(adresslId, that.adresslId);
+        return Objects.equals(id, that.id)
+                && Objects.equals(name, that.name)
+                && Objects.equals(number, that.number)
+                && Objects.equals(adresslId, that.adresslId);
     }
 
     @Override
@@ -80,11 +93,11 @@ public class HospitalEntity {
 
     @Override
     public String toString() {
-        return "HospitalEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", number=" + number +
-                ", adresslId=" + adresslId.getId() +
-                '}';
+        return "\nHospitalEntity{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", number=" + number
+                + ", adresslId=" + adresslId.getId()
+                + '}';
     }
 }

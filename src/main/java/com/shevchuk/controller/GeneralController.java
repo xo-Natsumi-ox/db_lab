@@ -1,11 +1,12 @@
 package com.shevchuk.controller;
 
-import com.shevchuk.service.GeneralService;
+import java.util.List;
 
 public interface GeneralController<T, ID> {
-    void findAll();
 
-    void findById(ID id);
+    List<T> findAll();
+
+    T findById(ID id);
 
     void create(T entity);
 
@@ -13,7 +14,4 @@ public interface GeneralController<T, ID> {
 
     void delete(ID id);
 
-    GeneralService<T, ID> getService();
-
-    T getEntityById(ID id);
 }

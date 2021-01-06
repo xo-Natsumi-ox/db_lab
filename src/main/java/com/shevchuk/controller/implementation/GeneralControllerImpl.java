@@ -1,49 +1,94 @@
 package com.shevchuk.controller.implementation;
 
 import com.shevchuk.controller.GeneralController;
-import com.shevchuk.service.GeneralService;
+import com.shevchuk.service.implementation.GeneralServiceImpl;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public abstract class GeneralControllerImpl<T, ID> implements GeneralController<T, ID> {
+public abstract class GeneralControllerImpl<T, ID, SERVICE>
+        implements GeneralController<T, ID> {
 
-    @Override
-    public abstract GeneralService<T, ID> getService();
+    private GeneralServiceImpl service;
+    private static final SessionFactory SESSION_FACTORY;
 
-    @Override
-    public T getEntityById(ID id) {
-        return getService().findById(id);
-    }
-
-    @Override
-    public void findAll() {
-        List<T> listObj = getService().findAll();
-        for (T obj : listObj) {
-            System.out.println(obj);
+    static {
+        try {
+            Configuration configuration = new Configuration();
+            configuration.configure();
+            SESSION_FACTORY = configuration.buildSessionFactory();
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
         }
     }
 
+    public GeneralControllerImpl(Class<SERVICE> currentClass) {
+        try {
+            service = (GeneralServiceImpl) currentClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
-    public void findById(ID id) {
-        T obj = getService().findById(id);
-        System.out.println(obj);
+    public List<T> findAll() {
+        Session session = null;
+        List<T> entities = null;
+        try {
+            session = SESSION_FACTORY.openSession();
+            entities = service.findAll(session);
+        } finally {
+            session.close();
+        }
+        return entities;
+    }
+
+    @Override
+    public T findById(ID id) {
+        Session session = null;
+        T entity = null;
+        try {
+            session = SESSION_FACTORY.openSession();
+            entity = (T) service.findById(id, session);
+        } finally {
+            session.close();
+        }
+        return entity;
     }
 
     @Override
     public void create(T entity) {
-        getService().create(entity);
-        System.out.println("object created");
+        Session session = null;
+        try {
+            session = SESSION_FACTORY.openSession();
+            service.create(entity, session);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void update(T entity) {
-        getService().update(entity);
-        System.out.println("object updated");
+        Session session = null;
+        try {
+            session = SESSION_FACTORY.openSession();
+            service.update(entity, session);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void delete(ID id) {
-        getService().delete(id);
-        System.out.println("object deleted");
+        Session session = null;
+        try {
+            session = SESSION_FACTORY.openSession();
+            service.delete(id, session);
+        } finally {
+            session.close();
+        }
     }
 }
